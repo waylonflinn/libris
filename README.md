@@ -17,7 +17,7 @@ that contains this:
 	return KEYS[1] + KEYS[2]
 
 
-Then call it from some node code like this:
+Call it from some node code like this:
 
 	var redis = require('redis'),
 		libris = require('libris');

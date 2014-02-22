@@ -1,7 +1,7 @@
 {
 	"name": "libris",
-	"description": "Simple Redis script management",
-	"version": "0.0.1-1",
+	"description": "Simple Redis Script Management, with Library Support",
+	"version": "0.0.1-2",
 	"main": "./lib/libris",
 	"keywords": ["redis", "script", "library"],
 	"repository":{ 

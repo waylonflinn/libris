@@ -80,26 +80,31 @@ Here's a basic introduction to what goes in the `lib` directory. You can create 
 script like this:
 
 ```lua
-	-- add two numbers
-	local add = function(a, b)
-		return a + b
-	end
+-- add two numbers
+local add = function(a, b)
+	return a + b
+end
 ```
 
 With the above function in a file in your `lib` directory (say `simple-math.lua`), you can do the following
 in one of your scripts.
 
-	return add(KEYS[1], KEYS[2])
+```lua
+return add(KEYS[1], KEYS[2])
+```
 
 
 This is exactly the same as creating a single file with the following contents.
 
-	-- Add two numbers
-	local add = function(a, b)
-		return a + b
-	end
 
-	return add(KEYS[1], KEYS[2])
+```lua
+-- add two numbers
+local add = function(a, b)
+	return a + b
+end
+
+return add(KEYS[1], KEYS[2])
+```
 
 In fact, this is exactly what `libris` will send to Redis. The diffence is, you can use the functions in `simple-math.lua` in all your scripts without having to explicity include them.
 
@@ -107,33 +112,40 @@ In fact, this is exactly what `libris` will send to Redis. The diffence is, you 
 
 Here's something a little more useful. Put this function in a file in your `lib` directory (maybe `utility.lua`).
 
-	local map = function(array, func)
-		local new_array = {}
-		for i,v in ipairs(array) do
-			new_array[i] = func(v)
-		end
-		return new_array
-	end
 
+```lua
+local map = function(array, func)
+	local new_array = {}
+	for i,v in ipairs(array) do
+		new_array[i] = func(v)
+	end
+	return new_array
+end
+```
 
 Then put this in another file in your `scripts` directory (like `mapper.lua`).
 
-	local doubleIt = function(number)
-	    return number + number
-	end
 
-	-- double all the keys and return an array-like table
-	return map(KEYS, doubleIt)
+```lua
+local doubleIt = function(number)
+    return number + number
+end
+
+-- double all the keys and return an array-like table
+return map(KEYS, doubleIt)
+```
 
 
 and call it like this:
 
-	scripts.execute("mapper", [1, 2, 3, 4, 5], function(err, result){
+```javascript
+scripts.execute("mapper", [1, 2, 3, 4, 5], function(err, result){
 
-		// should print '[ 2, 4, 6, 8, 10 ]'
-		console.log(result);
-		process.exit(0);
-	});
+	// should print '[ 2, 4, 6, 8, 10 ]'
+	console.log(result);
+	process.exit(0);
+});
+```
 
 ## Notes
 

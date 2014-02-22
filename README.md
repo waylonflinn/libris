@@ -13,7 +13,7 @@ Create a directory called `scripts` in the root of your node project with a lua 
 that contains this:
 
 
-	-- return the sum of the first two arguments
+	--// return the sum of the first two arguments
 	return KEYS[1] + KEYS[2]
 
 
@@ -31,6 +31,7 @@ Call it from some node code like this:
 	script.execute("add", [2, 3], function(err, result){
 		// should print '5'
 		console.log(result);
+    	process.exit(0);
 	});
 
 

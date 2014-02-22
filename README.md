@@ -12,29 +12,31 @@ A simple Redis script manager with library support. Works with [node-redis](http
 Create a directory called `scripts` in the root of your node project with a lua file named `add.lua`
 that contains this:
 
-
-	--// return the sum of the first two arguments
-	return KEYS[1] + KEYS[2]
+```lua
+-- return the sum of the first two arguments
+return KEYS[1] + KEYS[2]
+```
 
 
 Call it from some node code like this:
 
-	var redis = require('redis'),
-		libris = require('libris');
+```node
+var redis = require('redis'),
+	libris = require('libris');
 
 
-	var scriptDirectory = __dirname + "/scripts/",
-		store = redis.createClient(6379, "localhost"),
-		scripts = libris(store, scriptDirectory);
+var scriptDirectory = __dirname + "/scripts/",
+	store = redis.createClient(6379, "localhost"),
+	scripts = libris(store, scriptDirectory);
 
 
-	scripts.execute("add", [2, 3], function(err, result){
-		
-		// should print '5'
-		console.log(result);
-    	process.exit(0);
-	});
-
+scripts.execute("add", [2, 3], function(err, result){
+	
+	// should print '5'
+	console.log(result);
+	process.exit(0);
+});
+```
 
 The first argument to the `execute` function is the name of a file in the `scripts` directory. This file
 should contain the lua code you want to execute. The second argument is an array of arguments to pass to the script (node-redis style). The final argument is the ubiquitous node callback.
@@ -72,15 +74,17 @@ Here's an example of what this might look like:
 	          +--utility.lua
 
 
-## Functions in Redis
+### Functions in Redis
 
-Here's a basic introduction to what goes in the `lib` directory. This is how you create a function in a Redis
-script:
+Here's a basic introduction to what goes in the `lib` directory. You can create a function in a Redis
+script like this:
 
-	--// add two numbers
+```lua
+	-- add two numbers
 	local add = function(a, b)
 		return a + b
 	end
+```
 
 With the above function in a file in your `lib` directory (say `simple-math.lua`), you can do the following
 in one of your scripts.
@@ -98,6 +102,8 @@ This is exactly the same as creating a single file with the following contents.
 	return add(KEYS[1], KEYS[2])
 
 In fact, this is exactly what `libris` will send to Redis. The diffence is, you can use the functions in `simple-math.lua` in all your scripts without having to explicity include them.
+
+### Half of a Redis Map-Reduce Framework
 
 Here's something a little more useful. Put this function in a file in your `lib` directory (maybe `utility.lua`).
 
@@ -120,7 +126,7 @@ Then put this in another file in your `scripts` directory (like `mapper.lua`).
 	return map(KEYS, doubleIt)
 
 
-and call it like this
+and call it like this:
 
 	scripts.execute("mapper", [1, 2, 3, 4, 5], function(err, result){
 

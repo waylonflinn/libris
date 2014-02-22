@@ -59,7 +59,7 @@ The real strength of this module is that it allows you to create reusable functi
 A basic introduction to what goes in the `lib` directory. This is how you create a function in a Redis
 script:
 
-	-- Add two numbers
+	--// add two numbers
 	local add = function(a, b)
 		return a + b
 	end
@@ -110,4 +110,5 @@ and call it like this
 
 		// should print '[2, 4, 6, 8, 10]'
 		console.log(result);
+		process.exit(0);
 	});

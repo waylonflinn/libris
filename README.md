@@ -25,10 +25,10 @@ Call it from some node code like this:
 
 	var scriptDirectory = __dirname + "/scripts/",
 		store = redis.createClient(6379, "localhost"),
-		script = libris(store, scriptDirectory);
+		scripts = libris(store, scriptDirectory);
 
 
-	script.execute("add", [2, 3], function(err, result){
+	scripts.execute("add", [2, 3], function(err, result){
 		
 		// should print '5'
 		console.log(result);
@@ -37,7 +37,7 @@ Call it from some node code like this:
 
 
 The first argument to the `execute` function is the name of a file in the `scripts` directory. This file
-should contain the lua code you want to execute. Second argument is an array of arguments to pass to the script (node-redis style). Third argument is the ubiquitous node callback.
+should contain the lua code you want to execute. The second argument is an array of arguments to pass to the script (node-redis style). The final argument is the ubiquitous node callback.
 
 ## Usage
 
@@ -46,7 +46,7 @@ should contain the lua code you want to execute. Second argument is an array of 
 2. Make sure the files inside are valid Redis scripts and have a `.lua` extension.
 3. Create a `script` object in your node.js code by passing your redis object and the path to 
 your script directory to `libris`.
-4. Call any of the scripts in your directory by passing the file name to the `execute` object,
+4. Call any of the scripts in your directory by passing its file name to the `execute` object,
 along with an array of arguments to be passed to the Redis script.
 
 
@@ -54,7 +54,7 @@ along with an array of arguments to be passed to the Redis script.
 
 The real strength of this module is that it allows you to create reusable functions and include them in your Redis scripts. To get it working create a directory named `lib` inside your `scripts` directory. The contents of this directory will be concatenated and prepended to every Redis script. They must be valid lua code.
 
-Here's an example of what that might look like:
+Here's an example of what this might look like:
 
 
 	node-app
@@ -74,7 +74,7 @@ Here's an example of what that might look like:
 
 ## Functions in Redis
 
-A basic introduction to what goes in the `lib` directory. This is how you create a function in a Redis
+Here's a basic introduction to what goes in the `lib` directory. This is how you create a function in a Redis
 script:
 
 	--// add two numbers
@@ -88,7 +88,7 @@ in one of your scripts.
 	return add(KEYS[1], KEYS[2])
 
 
-This is exactly the same as creating a single file with the following contents, except now the functions in `simple-math.lua` can be used by other scripts.
+This is exactly the same as creating a single file with the following contents.
 
 	-- Add two numbers
 	local add = function(a, b)
@@ -97,6 +97,7 @@ This is exactly the same as creating a single file with the following contents, 
 
 	return add(KEYS[1], KEYS[2])
 
+In fact, this is exactly what `libris` will send to Redis. The diffence is, you can use the functions in `simple-math.lua` in all your scripts without having to explicity include them.
 
 Here's something a little more useful. Put this function in a file in your `lib` directory (maybe `utility.lua`).
 
@@ -121,9 +122,16 @@ Then put this in another file in your `scripts` directory (like `mapper.lua`).
 
 and call it like this
 
-	script.execute("mapper", [1, 2, 3, 4, 5], function(err, result){
+	scripts.execute("mapper", [1, 2, 3, 4, 5], function(err, result){
 
 		// should print '[ 2, 4, 6, 8, 10 ]'
 		console.log(result);
 		process.exit(0);
 	});
+
+## Notes
+
+Right now, *all the files* in your `lib` directory get concatenated and prepended to *every* script. 
+The impact of this is mitigated somewhat by Redis' SHA based caching. Nonetheless, you'll want to be careful
+about what you put in there. Future developments will probably address this, while leaving the current
+mode as an option.

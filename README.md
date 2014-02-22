@@ -54,6 +54,23 @@ along with an array of arguments to be passed to the Redis script.
 
 The real strength of this module is that it allows you to create reusable functions and include them in your Redis scripts. To get it working create a directory named `lib` inside your `scripts` directory. The contents of this directory will be concatenated and prepended to every Redis script. They must be valid lua code.
 
+Here's an example of what that might look like:
+
+
+	node-app
+	|
+	|--app.js
+	|
+	+--scripts
+	      |
+	      |--add.lua
+	      |--mapper.lua
+	      |
+	      +--lib
+	          |
+	          |--simple-math.lua
+	          +--utility.lua
+
 
 ## Functions in Redis
 

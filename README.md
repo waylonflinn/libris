@@ -29,6 +29,7 @@ Call it from some node code like this:
 
 
 	script.execute("add", [2, 3], function(err, result){
+		
 		// should print '5'
 		console.log(result);
     	process.exit(0);
@@ -70,8 +71,7 @@ in one of your scripts.
 	return add(KEYS[1], KEYS[2])
 
 
-This is exactly the same as creating a single file with the following contents, except now the functions in
-your `simple-math.lua` file can be used by other scripts.
+This is exactly the same as creating a single file with the following contents, except now the functions in `simple-math.lua` can be used by other scripts.
 
 	-- Add two numbers
 	local add = function(a, b)
@@ -98,13 +98,14 @@ Then put this in another file in your `scripts` directory (like `mapper.lua`).
 	    return number + number
 	end
 
-	-- returns {2, 4, 6, 8, 10}
+	-- double all the keys and return an array-like table
 	return map(KEYS, doubleIt)
 
 
 and call it like this
 
 	script.execute("mapper", [1, 2, 3, 4, 5], function(err, result){
+
 		// should print '[ 2, 4, 6, 8, 10 ]'
 		console.log(result);
 		process.exit(0);

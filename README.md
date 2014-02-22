@@ -20,7 +20,7 @@ return KEYS[1] + KEYS[2]
 
 Call it from some node code like this:
 
-```node
+```javascript
 var redis = require('redis'),
 	libris = require('libris');
 

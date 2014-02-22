@@ -35,15 +35,17 @@ Then call it from some node code like this:
 
 
 The first argument to the `execute` function is the name of a file in the `scripts` directory. This file
-should contain the lua code you want to execute. Second argument is an array of arguments to pass to the script (node-redis style). Third argument is the ubiquitous callback.
+should contain the lua code you want to execute. Second argument is an array of arguments to pass to the script (node-redis style). Third argument is the ubiquitous node callback.
 
 ## Usage
 
 
 1. Create a directory to hold your Redis scripts (named `scripts` above).
-2. Make sure the files inside have a `.lua` extension.
-3. Create a `libris` object by passing in your redis object and the path to the script directory you just created.
-4. Call any of the scripts in your directory by passing the file name to the `execute` object.
+2. Make sure the files inside are valid Redis scripts and have a `.lua` extension.
+3. Create a `script` object in your node.js code by passing your redis object and the path to 
+your script directory to `libris`.
+4. Call any of the scripts in your directory by passing the file name to the `execute` object,
+along with an array of arguments to be passed to the Redis script.
 
 
 ## Library support

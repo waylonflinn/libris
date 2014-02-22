@@ -49,12 +49,12 @@ should contain the lua code you want to execute. The second argument is an array
 3. Create a `script` object in your node.js code by passing your redis object and the path to 
 your script directory to `libris`.
 4. Call any of the scripts in your directory by passing its file name to the `execute` object,
-along with an array of arguments to be passed to the Redis script.
+along with an array of arguments to be passed to that script.
 
 
 ## Library support
 
-The real strength of this module is that it allows you to create reusable functions and include them in your Redis scripts. To get it working create a directory named `lib` inside your `scripts` directory. The contents of this directory will be concatenated and prepended to every Redis script. They must be valid lua code.
+The real strength of this module is that it allows you to create reusable functions and include them in your Redis scripts. To get it working create a directory named `lib` inside your `scripts` directory. The contents of this directory will be concatenated and prepended to every Redis script. Just as with the scripts directory, they must be valid lua code and have a `.lua` extension.
 
 Here's an example of what this might look like:
 

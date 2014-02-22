@@ -94,21 +94,18 @@ Here's something a little more useful. Put this function in a file in your `lib`
 
 Then put this in another file in your `scripts` directory (like `mapper.lua`).
 
-	local set1 = {1, 2, 3, 4, 5}
-
 	local doubleIt = function(number)
-		return number + number
+	    return number + number
 	end
 
 	-- returns {2, 4, 6, 8, 10}
-	return map(set1, doubleIt)
+	return map(KEYS, doubleIt)
 
 
 and call it like this
 
-	script.execute('mapper', [], function(err, result){
-
-		// should print '[2, 4, 6, 8, 10]'
+	script.execute("mapper", [1, 2, 3, 4, 5], function(err, result){
+		// should print '[ 2, 4, 6, 8, 10 ]'
 		console.log(result);
 		process.exit(0);
 	});

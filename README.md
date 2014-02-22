@@ -29,14 +29,13 @@ Then call it from some node code like this:
 
 
 	script.execute("add", [2, 3], function(err, result){
-		// using the add function below, this should print the number `5` to the console.
+		// should print '5'
 		console.log(result);
 	});
 
 
-The first argument to the `execute` function is the name of the file in the `scripts` directory containing the
-lua code you want to execute. Second argument is an array of arguments to pass to this script (node-redis style).
-Third argument is the ubiquitous callback.
+The first argument to the `execute` function is the name of a file in the `scripts` directory. This file
+should contain the lua code you want to execute. Second argument is an array of arguments to pass to the script (node-redis style). Third argument is the ubiquitous callback.
 
 ## Usage
 
@@ -49,7 +48,7 @@ Third argument is the ubiquitous callback.
 
 ## Library support
 
-The real strength of this module is that it allows you to create reusable functions and include them in your Redis scripts. To get it working create a directory named `lib` inside your `scripts` directory. The contents of this directory will be concatenated and prepended to every Redis script, and should be valid lua code.
+The real strength of this module is that it allows you to create reusable functions and include them in your Redis scripts. To get it working create a directory named `lib` inside your `scripts` directory. The contents of this directory will be concatenated and prepended to every Redis script. They must be valid lua code.
 
 
 ## Functions in Redis
@@ -62,7 +61,7 @@ script:
 		return a + b
 	end
 
-If the above function is in a file in your `lib` directory (say `simple-math.lua`), you can do the following
+With the above function in a file in your `lib` directory (say `simple-math.lua`), you can do the following
 in one of your scripts.
 
 	return add(KEYS[1], KEYS[2])
@@ -105,7 +104,7 @@ Then put this in another file in your `scripts` directory (like `mapper.lua`).
 and call it like this
 
 	script.execute('mapper', [], function(err, result){
-		
-		// should print [2, 4, 6, 8, 10]
+
+		// should print '[2, 4, 6, 8, 10]'
 		console.log(result);
 	});

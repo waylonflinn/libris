@@ -13,7 +13,7 @@ Create a directory called `scripts` in the root of your node project with a lua 
 that contains this:
 
 ```lua
--- return the sum of the first two arguments
+--// return the sum of the first two arguments
 return KEYS[1] + KEYS[2]
 ```
 
@@ -80,7 +80,7 @@ Here's a basic introduction to what goes in the `lib` directory. You can create 
 script like this:
 
 ```lua
--- add two numbers
+--// add two numbers
 local add = function(a, b)
 	return a + b
 end
@@ -98,7 +98,7 @@ This is exactly the same as creating a single file with the following contents.
 
 
 ```lua
--- add two numbers
+--// add two numbers
 local add = function(a, b)
 	return a + b
 end
@@ -131,7 +131,7 @@ local doubleIt = function(number)
     return number + number
 end
 
--- double all the keys and return an array-like table
+--// double all the keys and return an array-like table
 return map(KEYS, doubleIt)
 ```
 

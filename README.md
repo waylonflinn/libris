@@ -52,7 +52,7 @@ your script directory to `libris`.
 along with an array of arguments to be passed to that script.
 
 
-## Library support
+## Shared Functions: The `lib` Directory
 
 The real strength of this module is that it allows you to create reusable functions and include them in your Redis scripts. To get it working create a directory named `lib` inside your `scripts` directory. The contents of this directory will be concatenated and prepended to every Redis script. Just as with the scripts directory, they must be valid lua code and have a `.lua` extension.
 

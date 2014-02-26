@@ -1,7 +1,7 @@
 # libris
 
 
-A simple Redis script manager with library support. Works with [node-redis](https://github.com/mranney/node_redis).
+Simple Redis Scripting, with Shared Functions. Works with [node-redis](https://github.com/mranney/node_redis).
 
 ## Install
 
